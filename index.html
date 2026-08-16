@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>راديو أغرب القضايا | إصدار جنود الخفاء</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&family=Changa:wght@700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --wood-dark: #1b1008;
+      --wood-mid: #2c1a0e;
+      --wood-border: #4a2e1b;
+      --brass-gold: #d4af37;
+      --amber-glow: #ffb703;
+      --dial-bg: #0f0a05;
+      --text-creme: #fdf0d5;
+      --speaker-cloth: #18120c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at center, #1e130c 0%, #080402 100%);
+      color: var(--text-creme);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px 15px;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .radio-cabinet {
+      width: 100%;
+      max-width: 820px;
+      background: linear-gradient(145deg, var(--wood-mid), var(--wood-dark));
+      border: 12px solid #3d2314;
+      border-radius: 36px;
+      padding: 28px 24px;
+      box-shadow: 
+        0 25px 60px rgba(0,0,0,0.95),
+        inset 0 0 30px rgba(0,0,0,0.8),
+        inset 0 2px 4px var(--brass-gold);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+    }
+
+    /* الشارة النحاسية العلوية وبصمة جنود الخفاء */
+    .brass-badge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--wood-border);
+      padding-bottom: 14px;
+    }
+    .radio-brand {
+      font-family: 'Changa', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--brass-gold);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hidden-soldiers-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1.5px solid var(--brass-gold);
+      padding: 5px 14px;
+      border-radius: 20px;
+      box-shadow: inset 0 0 8px rgba(212, 175, 55, 0.2);
+    }
+    .hidden-soldiers-badge i {
+      color: var(--amber-glow);
+      font-size: 0.95rem;
+    }
+    .hidden-soldiers-badge span {
+      font-family: 'Changa', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-creme);
+      letter-spacing: 0.5px;
+    }
+    .power-lamp {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--amber-glow);
+    }
+    .lamp-bulb {
+      width: 12px;
+      height: 12px;
+      background: #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #ef4444;
+      animation: warmGlow 2s infinite alternate;
+    }
+    @keyframes warmGlow {
+      from { opacity: 0.6; filter: blur(0.5px); }
+      to { opacity: 1; filter: blur(1.5px); }
+    }
+
+    /* لوحة الترددات الكلاسيكية */
+    .tuning-glass-panel {
+      background: var(--dial-bg);
+      border: 4px solid var(--wood-border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: inset 0 0 25px rgba(0,0,0,0.9), 0 4px 10px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tuning-glass-panel::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .current-case-display {
+      text-align: center;
+      min-height: 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .station-freq {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--amber-glow);
+      letter-spacing: 2px;
+    }
+    .broadcast-title {
+      font-family: 'Changa', sans-serif;
+      font-size: 1.3rem;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255, 183, 3, 0.4);
+      line-height: 1.4;
+    }
+
+    /* شريط التردد التناظري والمؤشر */
+    .scale-ruler {
+      background: #150f08;
+      border: 1px solid #332114;
+      border-radius: 8px;
+      height: 44px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .scale-ticks {
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(90deg, #5c3e28 0, #5c3e28 2px, transparent 2px, transparent 16px);
+      opacity: 0.6;
+    }
+    .tuning-needle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0%;
+      width: 3px;
+      background: #ef4444;
+      box-shadow: 0 0 10px #ef4444;
+      transition: left 0.1s linear;
+    }
+    .tuning-needle::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: -4px;
+      width: 11px;
+      height: 6px;
+      background: var(--brass-gold);
+      border-radius: 2px;
+    }
+
+    .dial-time-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--brass-gold);
+    }
+
+    /* بكرات التحكم والمفاتيح */
+    .knobs-console {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+    }
+    .knob-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .knob-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--brass-gold);
+      letter-spacing: 1px;
+    }
+    .rotary-knob {
+      width: 58px;
+      height: 58px;
+      background: radial-gradient(circle, #4a2e1b 30%, #1a0f07 90%);
+      border: 3px solid var(--brass-gold);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-creme);
+      font-size: 1.25rem;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.8), inset 0 2px 4px rgba(255,255,255,0.2);
+      transition: transform 0.15s, background 0.2s;
+    }
+    .rotary-knob:hover {
+      transform: scale(1.05);
+      border-color: #fff;
+    }
+    .rotary-knob.play-knob {
+      width: 72px;
+      height: 72px;
+      background: radial-gradient(circle, #b45309 30%, #78350f 90%);
+      font-size: 1.6rem;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255, 183, 3, 0.4);
+    }
+
+    /* موجات ومجلدات الراديو */
+    .wave-bands {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .band-btn {
+      background: #1a1009;
+      border: 2px solid #4a2e1b;
+      color: #a89078;
+      border-radius: 12px;
+      padding: 10px 4px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .band-btn i { font-size: 1rem; }
+    .band-btn:hover, .band-btn.active {
+      background: linear-gradient(180deg, #3d2314, #24140a);
+      border-color: var(--amber-glow);
+      color: #fff;
+      box-shadow: inset 0 0 10px rgba(255, 183, 3, 0.2);
+    }
+    .band-btn.active i { color: var(--amber-glow); }
+
+    /* شبكة القماش وقائمة التسجيلات */
+    .speaker-grille-panel {
+      background: var(--speaker-cloth);
+      border: 3px solid var(--wood-border);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .grille-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--brass-gold);
+    }
+    .station-counter-badge {
+      font-family: 'Share Tech Mono', monospace;
+      background: #0a0604;
+      border: 1px solid var(--wood-border);
+      color: var(--amber-glow);
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .tuning-search {
+      width: 100%;
+      background: #0d0805;
+      border: 1.5px solid var(--wood-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .tuning-search:focus {
+      border-color: var(--amber-glow);
+    }
+
+    .records-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 320px;
+      overflow-y: auto;
+      padding-left: 4px;
+    }
+    .records-list::-webkit-scrollbar { width: 6px; }
+    .records-list::-webkit-scrollbar-thumb { background: #4a2e1b; border-radius: 4px; }
+
+    .record-item {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(74, 46, 27, 0.5);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .record-item:hover, .record-item.active {
+      background: rgba(255, 183, 3, 0.08);
+      border-color: var(--amber-glow);
+    }
+    .record-item.active .item-title {
+      color: var(--amber-glow);
+      font-weight: 800;
+    }
+
+    .item-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+    }
+    .item-title {
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .item-freq {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--brass-gold);
+    }
+
+    /* توقيع جنود الخفاء الفاخر */
+    .footer-stamp {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #967254;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-stamp span {
+      color: var(--brass-gold);
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="radio-cabinet">
+    
+    <!-- الشارة العلوية وبصمة جنود الخفاء -->
+    <div class="brass-badge-header">
+      <div class="radio-brand">
+        <i class="fa-solid fa-tower-broadcast"></i>
+        <span>راديو أغرب القضايا</span>
+      </div>
+
+      <div class="hidden-soldiers-badge">
+        <i class="fa-solid fa-mask"></i>
+        <span>جنود الخفاء</span>
+      </div>
+
+      <div class="power-lamp">
+        <div class="lamp-bulb"></div>
+        <span>ON AIR</span>
+      </div>
+    </div>
+
+    <!-- لوحة الترددات الكلاسيكية -->
+    <div class="tuning-glass-panel">
+      <div class="current-case-display">
+        <div class="station-freq" id="case-num">FREQUENCY: CH-001</div>
+        <div class="broadcast-title" id="case-title">جاري ضبط التردد واستدعاء البث...</div>
+      </div>
+
+      <audio id="case-audio"></audio>
+
+      <div class="scale-ruler" id="tape-track" onclick="seekCaseAudio(event)">
+        <div class="scale-ticks"></div>
+        <div class="tuning-needle" id="tape-needle"></div>
+      </div>
+
+      <div class="dial-time-row">
+        <span>موجة البرنامج العام التراثية</span>
+        <span id="time-counter">00:00 / 00:00</span>
+      </div>
+    </div>
+
+    <!-- بكرات التحكم التناظرية -->
+    <div class="knobs-console">
+      <div class="knob-unit">
+        <button class="rotary-knob" onclick="playPrevCase()"><i class="fa-solid fa-backward-step"></i></button>
+        <span class="knob-label">السابق</span>
+      </div>
+
+      <div class="knob-unit">
+        <button class="rotary-knob play-knob" id="play-btn" onclick="toggleCasePlay()"><i class="fa-solid fa-play" id="play-icon"></i></button>
+        <span class="knob-label">تشغيل / إيقاف</span>
+      </div>
+
+      <div class="knob-unit">
+        <button class="rotary-knob" onclick="playNextCase()"><i class="fa-solid fa-forward-step"></i></button>
+        <span class="knob-label">التالي</span>
+      </div>
+    </div>
+
+    <!-- موجات ومجلدات الراديو -->
+    <div class="wave-bands">
+      <button class="band-btn active" onclick="switchSection(0)">
+        <i class="fa-solid fa-radio"></i>
+        <span>المجلد الأول (151)</span>
+      </button>
+      <button class="band-btn" onclick="switchSection(1)">
+        <i class="fa-solid fa-compact-disc"></i>
+        <span>المجلد الثاني (53)</span>
+      </button>
+      <button class="band-btn" onclick="switchSection(2)">
+        <i class="fa-solid fa-tower-cell"></i>
+        <span>المجلد الثالث (23)</span>
+      </button>
+      <button class="band-btn" onclick="switchSection(3)">
+        <i class="fa-solid fa-star"></i>
+        <span>قضايا خاصة (4)</span>
+      </button>
+    </div>
+
+    <!-- قائمة المحطات وشبكة الراديو -->
+    <div class="speaker-grille-panel">
+      <div class="grille-header">
+        <span id="section-title-label"><i class="fa-solid fa-bars-staggered" style="margin-left:6px;"></i> قائمة تسجيلات الموجة</span>
+        <span class="station-counter-badge" id="cases-count">0 قضية</span>
+      </div>
+
+      <input type="text" class="tuning-search" id="search-cases" placeholder="🔍 اضبط مؤشر البحث عن قضية معينة..." oninput="filterCases()">
+
+      <ul class="records-list" id="cases-container"></ul>
+    </div>
+
+    <div class="footer-stamp">
+      <i class="fa-solid fa-shield-halved" style="color:var(--amber-glow);"></i>
+      تم التطوير والتوثيق بواسطة <span>جنود الخفاء</span> &bull; 2026
+    </div>
+  </div>
+
+  <script>
+    const DOSSIER_SECTIONS = [
+      {
+        name: "المجلد الأول (التجميعة الكبرى - 152 قضية)",
+        type: "collection",
+        id: "001._20190629"
+      },
+      {
+        name: "المجلد الثاني (الأرشيف الذهبي - 53 قضية)",
+        type: "collection",
+        id: "20250406_20250406_2047"
+      },
+      {
+        name: "المجلد الثالث (الأرشيف الكلاسيكي - 23 قضية)",
+        type: "collection",
+        id: "20191015_20191015_0857"
+      },
+      {
+        name: "المجلد الرابع (القضايا المنفردة والنادرة)",
+        type: "singles",
+        items: [
+          { id: "42322016", title: "أغرب القضايا: قضية خالد ومايسة" },
+          { id: "3-2020_20201108", title: "أغرب القضايا: قضية شنطة الفلوس" },
+          { id: "13-2020_20201019", title: "أغرب القضايا: قضية فستان الدم" },
+          { id: "2232016_20160329", title: "أغرب القضايا: قضايا صابر" }
+        ]
+      }
+    ];
+
+    let currentSectionIdx = 0;
+    let sectionCases = [];
+    let filteredCases = [];
+    let currentCaseIdx = 0;
+
+    const audio = document.getElementById('case-audio');
+    const playIcon = document.getElementById('play-icon');
+    const tapeNeedle = document.getElementById('tape-needle');
+    const timeCounter = document.getElementById('time-counter');
+    const caseTitle = document.getElementById('case-title');
+    const caseNum = document.getElementById('case-num');
+    const casesContainer = document.getElementById('cases-container');
+    const casesCount = document.getElementById('cases-count');
+    const sectionTitleLabel = document.getElementById('section-title-label');
+
+    function cleanCaseName(name) {
+      let title = decodeURIComponent(name);
+      title = title.replace(/\.(mp3|ogg|wav|m4a)$/i, '');
+      title = title.replace(/_/g, ' ');
+      title = title.replace(/^[0-9\.\-\s_]+/, '');
+      return title.trim() || decodeURIComponent(name);
+    }
+
+    async function loadSection(index) {
+      currentSectionIdx = index;
+      sectionCases = [];
+      filteredCases = [];
+      casesContainer.innerHTML = '<li style="text-align:center; padding:20px; color:#a89078;"><i class="fa-solid fa-circle-notch fa-spin"></i> جاري ضبط هوائي الراديو...</li>';
+      casesCount.textContent = '...';
+
+      const sec = DOSSIER_SECTIONS[index];
+      sectionTitleLabel.innerHTML = `<i class="fa-solid fa-radio" style="margin-left:6px;"></i> ${sec.name}`;
+
+      try {
+        if (sec.type === "collection") {
+          const res = await fetch(`https://archive.org/metadata/${sec.id}/files`);
+          const data = await res.json();
+          if (data.result && Array.isArray(data.result)) {
+            let audioFiles = data.result.filter(item => {
+              if (!item.name) return false;
+              const n = item.name.toLowerCase();
+              const isAudio = n.endsWith('.mp3') || n.endsWith('.ogg');
+              const isOriginal = (item.source || '').toLowerCase() === 'original';
+              return isAudio && isOriginal;
+            });
+
+            if (audioFiles.length === 0) {
+              audioFiles = data.result.filter(item => {
+                if (!item.name) return false;
+                const n = item.name.toLowerCase();
+                const isAudio = n.endsWith('.mp3') || n.endsWith('.ogg');
+                const isVBR = (item.format || '').toLowerCase().includes('vbr') && (item.source || '').toLowerCase() === 'derivative';
+                return isAudio && !isVBR;
+              });
+            }
+
+            sectionCases = audioFiles.map(item => ({
+              title: item.title || cleanCaseName(item.name),
+              url: `https://archive.org/download/${sec.id}/${encodeURIComponent(item.name)}`
+            }));
+          }
+        } else if (sec.type === "singles") {
+          for (const s of sec.items) {
+            try {
+              const res = await fetch(`https://archive.org/metadata/${s.id}/files`);
+              const data = await res.json();
+              if (data.result && Array.isArray(data.result)) {
+                const audioFile = data.result.find(f => f.name && (f.name.toLowerCase().endsWith('.mp3') || f.name.toLowerCase().endsWith('.ogg')));
+                if (audioFile) {
+                  sectionCases.push({
+                    title: s.title,
+                    url: `https://archive.org/download/${s.id}/${encodeURIComponent(audioFile.name)}`
+                  });
+                }
+              }
+            } catch (err) {}
+          }
+        }
+
+        filteredCases = [...sectionCases];
+        casesCount.textContent = `${sectionCases.length} تسجيل`;
+        renderCasesList();
+
+        if (sectionCases.length > 0) {
+          setupCase(0, false);
+        }
+      } catch (err) {
+        casesContainer.innerHTML = '<li style="text-align:center; padding:20px; color:#ef4444;">تعذر التقاط إشارة هذا المجلد.</li>';
+      }
+    }
+
+    function switchSection(index) {
+      document.querySelectorAll('.band-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+      loadSection(index);
+    }
+
+    function renderCasesList() {
+      casesContainer.innerHTML = '';
+      if (filteredCases.length === 0) {
+        casesContainer.innerHTML = '<li style="text-align:center; padding:20px; color:#a89078;">لا توجد قضايا مطابقة للبحث</li>';
+        return;
+      }
+
+      filteredCases.forEach((c) => {
+        const originalIndex = sectionCases.indexOf(c);
+        const li = document.createElement('li');
+        li.className = `record-item ${originalIndex === currentCaseIdx ? 'active' : ''}`;
+        li.onclick = () => setupCase(originalIndex, true);
+        li.innerHTML = `
+          <div class="item-right">
+            <i class="fa-solid ${originalIndex === currentCaseIdx && !audio.paused ? 'fa-radio' : 'fa-volume-low'}" style="color:var(--amber-glow);"></i>
+            <span class="item-title">${c.title}</span>
+          </div>
+          <span class="item-freq">FREQ_${originalIndex + 1}</span>
+        `;
+        casesContainer.appendChild(li);
+      });
+    }
+
+    function filterCases() {
+      const q = document.getElementById('search-cases').value.trim().toLowerCase();
+      if (!q) {
+        filteredCases = [...sectionCases];
+      } else {
+        filteredCases = sectionCases.filter((c, idx) => 
+          c.title.toLowerCase().includes(q) || (idx + 1).toString().includes(q)
+        );
+      }
+      renderCasesList();
+    }
+
+    function setupCase(index, autoPlay = false) {
+      if (!sectionCases[index]) return;
+      currentCaseIdx = index;
+      audio.src = sectionCases[currentCaseIdx].url;
+      caseTitle.textContent = sectionCases[currentCaseIdx].title;
+      caseNum.textContent = `TUNING: CH #${currentCaseIdx + 1} OF ${sectionCases.length}`;
+      tapeNeedle.style.left = '0%';
+      timeCounter.textContent = '00:00 / 00:00';
+
+      renderCasesList();
+
+      if (autoPlay) {
+        audio.play().then(() => {
+          playIcon.className = 'fa-solid fa-pause';
+        }).catch(() => {});
+      } else {
+        playIcon.className = 'fa-solid fa-play';
+      }
+    }
+
+    function toggleCasePlay() {
+      if (!audio.src && sectionCases.length > 0) {
+        setupCase(0, true);
+        return;
+      }
+      if (audio.paused) {
+        audio.play();
+        playIcon.className = 'fa-solid fa-pause';
+      } else {
+        audio.pause();
+        playIcon.className = 'fa-solid fa-play';
+      }
+      renderCasesList();
+    }
+
+    function playNextCase() {
+      if (sectionCases.length === 0) return;
+      currentCaseIdx = (currentCaseIdx + 1) % sectionCases.length;
+      setupCase(currentCaseIdx, true);
+    }
+
+    function playPrevCase() {
+      if (sectionCases.length === 0) return;
+      currentCaseIdx = (currentCaseIdx - 1 + sectionCases.length) % sectionCases.length;
+      setupCase(currentCaseIdx, true);
+    }
+
+    function formatTime(s) {
+      if (isNaN(s)) return "00:00";
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60);
+      return `${m < 10 ? '0' : ''}${m}:${sec < 10 ? '0' : ''}${sec}`;
+    }
+
+    audio.ontimeupdate = () => {
+      if (audio.duration) {
+        const pct = (audio.currentTime / audio.duration) * 100;
+        tapeNeedle.style.left = pct + '%';
+        timeCounter.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+      }
+    };
+
+    audio.onended = () => {
+      playNextCase();
+    };
+
+    function seekCaseAudio(e) {
+      const track = document.getElementById('tape-track');
+      const rect = track.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      if (audio.duration) {
+        audio.currentTime = (clickX / rect.width) * audio.duration;
+      }
+    }
+
+    loadSection(0);
+  </script>
+</body>
+</html>
